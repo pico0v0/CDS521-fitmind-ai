@@ -63,3 +63,4 @@ def generate_weekly_plan_baseline(
 
     final_plan = WeeklyPlan.model_validate(plan_dict)
     return final_plan, meta
+

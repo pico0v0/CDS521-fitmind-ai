@@ -91,3 +91,4 @@ def generate_weekly_plan_llm(
 
     final_plan = WeeklyPlan.model_validate(final_dict)
     return final_plan, meta
+

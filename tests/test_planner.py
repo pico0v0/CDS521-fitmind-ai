@@ -105,3 +105,4 @@ def test_validator_detects_violations_and_repairs():
     repaired = auto_repair_plan(bad_plan, SAMPLE_PROFILE)
     val2 = validate_weekly_plan(repaired, SAMPLE_PROFILE)
     assert val2.is_valid, f"修复后仍有违规: {val2.issues}"
+

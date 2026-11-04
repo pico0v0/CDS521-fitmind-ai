@@ -88,3 +88,4 @@ def compute_meal_detail(template: dict, food_by_id: Dict[str, dict]) -> MealDeta
             fat=round(totals["fat"], 1)
         )
     )
+

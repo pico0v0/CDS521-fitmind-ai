@@ -147,3 +147,4 @@ def apply_plan_edit(
         "validation_passed": True
     }
     return updated_plan, summary
+
