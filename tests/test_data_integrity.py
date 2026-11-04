@@ -51,3 +51,4 @@ def test_meals_integrity():
     assert slots["早餐"] >= 4, "早餐模板不足"
     assert slots["午餐"] >= 6, "午餐模板不足"
     assert slots["晚餐"] >= 6, "晚餐模板不足"
+

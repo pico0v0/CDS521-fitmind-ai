@@ -98,6 +98,38 @@ class MealDetail(BaseModel):
     nutrition: NutritionSummary = Field(description="确定性计算的营养总和")
 
 
+class DayMeals(BaseModel):
+    """单日三餐结构（明确字段以严格兼容 OpenAI Structured Outputs）"""
+    model_config = ConfigDict(extra="ignore")
+
+    breakfast: MealDetail = Field(description="早餐安排")
+    lunch: MealDetail = Field(description="午餐安排")
+    dinner: MealDetail = Field(description="晚餐安排")
+
+    def __getitem__(self, slot: str) -> MealDetail:
+        mapping = {
+            "早餐": self.breakfast, "午餐": self.lunch, "晚餐": self.dinner,
+            "breakfast": self.breakfast, "lunch": self.lunch, "dinner": self.dinner
+        }
+        return mapping[slot]
+
+    def items(self):
+        return [("早餐", self.breakfast), ("午餐", self.lunch), ("晚餐", self.dinner)]
+
+    def get(self, slot: str, default=None):
+        try:
+            return self[slot]
+        except KeyError:
+            return default
+
+    def to_slot_dict(self) -> Dict[str, Any]:
+        return {
+            "早餐": self.breakfast.model_dump(),
+            "午餐": self.lunch.model_dump(),
+            "晚餐": self.dinner.model_dump()
+        }
+
+
 class DailyWorkout(BaseModel):
     """单日训练规划"""
     model_config = ConfigDict(extra="ignore")
@@ -114,7 +146,7 @@ class DailyPlan(BaseModel):
 
     day: WeekDay = Field(description="星期 (周一至周日)")
     workout: Optional[DailyWorkout] = Field(default=None, description="当日训练安排，为 None 表示休息/恢复日")
-    meals: Dict[str, MealDetail] = Field(description="当日餐饮安排，包含早餐、午餐、晚餐")
+    meals: DayMeals = Field(description="当日餐饮安排，包含早餐(breakfast)、午餐(lunch)、晚餐(dinner)")
 
 
 class WeeklyPlan(BaseModel):
@@ -145,3 +177,4 @@ class ValidationResult(BaseModel):
 
     is_valid: bool = Field(description="是否完全符合所有硬约束")
     issues: List[str] = Field(default_factory=list, description="发现的违规问题清单")
+
