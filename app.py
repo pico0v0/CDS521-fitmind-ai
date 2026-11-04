@@ -57,6 +57,37 @@ PRESET_PROFILES = {
 st.title("🏋️ FitMind AI｜个性化健身与饮食规划系统")
 st.markdown("基于 **大语言模型 (LLM)** 与 **确定性规则约束校验 / 局部修复** 的智能运动与营养决策支持系统。")
 
+def format_explanation_markdown(text: str) -> str:
+    """将密集大段文字智能排版为带有段落标题、要点列表与高亮引用的优美 Markdown"""
+    if not text:
+        return ""
+    if "### " in text or "## " in text:
+        return text
+    
+    formatted = text
+    keywords_map = [
+        (["训练设计：", "训练安排：", "训练规划："], "### 🏋️ 训练周期化设计与负荷策略\n"),
+        (["营养设计：", "膳食规划：", "饮食设计："], "\n\n### 🥗 营养与热量赤字策略\n"),
+        (["执行口径：", "称重口径：", "烹饪建议："], "\n\n### 🍳 食材称重与烹饪执行口径\n"),
+        (["恢复日不安排", "恢复日：", "生活方式："], "\n\n### 🛌 身体恢复、睡眠与日常步数\n"),
+        (["若存在", "注意事项：", "安全提示："], "\n\n### 🛡️ 临床禁忌与健康安全提示\n> ⚠️ ")
+    ]
+    for aliases, heading in keywords_map:
+        for a in aliases:
+            if a in formatted:
+                if "：" in a or ":" in a:
+                    formatted = formatted.replace(a, heading)
+                else:
+                    formatted = formatted.replace(a, heading + a)
+                break
+    
+    formatted = formatted.replace("；目标每周", "。\n- **减重目标**：")
+    formatted = formatted.replace("；若连续2周", "。\n- **停滞调整**：若连续2周")
+    formatted = formatted.replace("；若每周下降超过", "。\n- **过快微调**：若每周下降超过")
+    formatted = formatted.replace("；保证7-9小时", "。\n- **生活作息**：保证7-9小时")
+    formatted = formatted.replace("；建议蒸、煮", "。\n- **烹饪方式**：建议蒸、煮")
+    return formatted.strip()
+
 # 侧边栏
 with st.sidebar:
     st.header("⚙️ 系统与用户配置")
@@ -254,37 +285,6 @@ if "current_plan" in st.session_state:
         with st.expander("⚠️ 点击查看违规详情清单", expanded=True):
             for issue in val_result.issues:
                 st.warning(issue)
-
-def format_explanation_markdown(text: str) -> str:
-    """将密集大段文字智能排版为带有段落标题、要点列表与高亮引用的优美 Markdown"""
-    if not text:
-        return ""
-    if "### " in text or "## " in text:
-        return text
-    
-    formatted = text
-    keywords_map = [
-        (["训练设计：", "训练安排：", "训练规划："], "### 🏋️ 训练周期化设计与负荷策略\n"),
-        (["营养设计：", "膳食规划：", "饮食设计："], "\n\n### 🥗 营养与热量赤字策略\n"),
-        (["执行口径：", "称重口径：", "烹饪建议："], "\n\n### 🍳 食材称重与烹饪执行口径\n"),
-        (["恢复日不安排", "恢复日：", "生活方式："], "\n\n### 🛌 身体恢复、睡眠与日常步数\n"),
-        (["若存在", "注意事项：", "安全提示："], "\n\n### 🛡️ 临床禁忌与健康安全提示\n> ⚠️ ")
-    ]
-    for aliases, heading in keywords_map:
-        for a in aliases:
-            if a in formatted:
-                if "：" in a or ":" in a:
-                    formatted = formatted.replace(a, heading)
-                else:
-                    formatted = formatted.replace(a, heading + a)
-                break
-    
-    formatted = formatted.replace("；目标每周", "。\n- **减重目标**：")
-    formatted = formatted.replace("；若连续2周", "。\n- **停滞调整**：若连续2周")
-    formatted = formatted.replace("；若每周下降超过", "。\n- **过快微调**：若每周下降超过")
-    formatted = formatted.replace("；保证7-9小时", "。\n- **生活作息**：保证7-9小时")
-    formatted = formatted.replace("；建议蒸、煮", "。\n- **烹饪方式**：建议蒸、煮")
-    return formatted.strip()
 
     # 科学性解释卡片
     if plan.get("explanation"):
