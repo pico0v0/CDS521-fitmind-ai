@@ -1,0 +1,15 @@
+{"id": "R01", "instruction": "周一改到周二", "expected_change_type": "move"}
+{"id": "R02", "instruction": "周三挪到周四", "expected_change_type": "move"}
+{"id": "R03", "instruction": "周二移到周五", "expected_change_type": "move"}
+{"id": "R04", "instruction": "早餐不吃鸡蛋", "expected_change_type": "diet_or_other"}
+{"id": "R05", "instruction": "不要牛奶", "expected_change_type": "diet_or_other"}
+{"id": "R06", "instruction": "不吃鸡胸肉", "expected_change_type": "diet_or_other"}
+{"id": "R07", "instruction": "周一改到周四，不要鸡蛋", "expected_change_type": "move"}
+{"id": "R08", "instruction": "晚餐不要三文鱼", "expected_change_type": "diet_or_other"}
+{"id": "R09", "instruction": "把周四运动挪到周日", "expected_change_type": "move"}
+{"id": "R10", "instruction": "不想吃豆腐", "expected_change_type": "diet_or_other"}
+{"id": "R11", "instruction": "周三改到周六，不想吃鸡蛋", "expected_change_type": "move"}
+{"id": "R12", "instruction": "午餐不吃牛肉", "expected_change_type": "diet_or_other"}
+{"id": "R13", "instruction": "周五改到周日", "expected_change_type": "move"}
+{"id": "R14", "instruction": "不吃奶制品", "expected_change_type": "diet_or_other"}
+{"id": "R15", "instruction": "明天只有20分钟，训练怎么调整", "expected_change_type": "diet_or_other"}

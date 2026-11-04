@@ -1,0 +1,18 @@
+[
+ {"id":"oats","name":"燕麦片","kcal":389,"protein":16.9,"carb":66.3,"fat":6.9,"allergens":[]},
+ {"id":"milk","name":"牛奶","kcal":61,"protein":3.2,"carb":4.8,"fat":3.3,"allergens":["乳制品"]},
+ {"id":"egg","name":"鸡蛋","kcal":143,"protein":12.6,"carb":0.7,"fat":9.5,"allergens":["鸡蛋"]},
+ {"id":"bread","name":"全麦面包","kcal":247,"protein":13.0,"carb":41.0,"fat":4.2,"allergens":["小麦"]},
+ {"id":"rice","name":"熟米饭","kcal":130,"protein":2.7,"carb":28.2,"fat":0.3,"allergens":[]},
+ {"id":"chicken","name":"熟鸡胸肉","kcal":165,"protein":31,"carb":0,"fat":3.6,"allergens":[]},
+ {"id":"tofu","name":"豆腐","kcal":76,"protein":8.1,"carb":1.9,"fat":4.8,"allergens":["大豆"]},
+ {"id":"salmon","name":"熟三文鱼","kcal":206,"protein":22.1,"carb":0,"fat":12.4,"allergens":["鱼类"]},
+ {"id":"broccoli","name":"西兰花","kcal":35,"protein":2.4,"carb":7.2,"fat":0.4,"allergens":[]},
+ {"id":"carrot","name":"胡萝卜","kcal":41,"protein":0.9,"carb":9.6,"fat":0.2,"allergens":[]},
+ {"id":"banana","name":"香蕉","kcal":89,"protein":1.1,"carb":22.8,"fat":0.3,"allergens":[]},
+ {"id":"apple","name":"苹果","kcal":52,"protein":0.3,"carb":13.8,"fat":0.2,"allergens":[]},
+ {"id":"almond","name":"杏仁","kcal":579,"protein":21.2,"carb":21.6,"fat":49.9,"allergens":["坚果"]},
+ {"id":"yogurt","name":"原味酸奶","kcal":61,"protein":3.5,"carb":4.7,"fat":3.3,"allergens":["乳制品"]},
+ {"id":"beef","name":"熟瘦牛肉","kcal":217,"protein":26.1,"carb":0,"fat":11.8,"allergens":[]},
+ {"id":"olive_oil","name":"橄榄油","kcal":884,"protein":0,"carb":0,"fat":100,"allergens":[]}
+]

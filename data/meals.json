@@ -1,0 +1,14 @@
+[
+ {"id":"bf_oats","name":"牛奶燕麦香蕉碗","slot":"早餐","ingredients":[["oats",50],["milk",200],["banana",100]]},
+ {"id":"bf_eggs","name":"全麦鸡蛋早餐","slot":"早餐","ingredients":[["egg",100],["bread",80],["apple",150]]},
+ {"id":"bf_soy","name":"豆腐米饭蔬菜碗","slot":"早餐","ingredients":[["tofu",150],["rice",120],["carrot",100]]},
+ {"id":"bf_simple","name":"燕麦苹果早餐","slot":"早餐","ingredients":[["oats",60],["apple",150]]},
+ {"id":"lu_chicken","name":"鸡胸肉米饭蔬菜","slot":"午餐","ingredients":[["chicken",150],["rice",180],["broccoli",150]]},
+ {"id":"lu_salmon","name":"三文鱼米饭蔬菜","slot":"午餐","ingredients":[["salmon",140],["rice",180],["carrot",120]]},
+ {"id":"lu_tofu","name":"豆腐米饭蔬菜","slot":"午餐","ingredients":[["tofu",200],["rice",180],["broccoli",180]]},
+ {"id":"lu_beef","name":"牛肉米饭套餐","slot":"午餐","ingredients":[["beef",140],["rice",180],["carrot",120]]},
+ {"id":"di_chicken","name":"鸡胸肉西兰花米饭","slot":"晚餐","ingredients":[["chicken",140],["rice",150],["broccoli",160]]},
+ {"id":"di_salmon","name":"三文鱼蔬菜米饭","slot":"晚餐","ingredients":[["salmon",130],["rice",160],["broccoli",140]]},
+ {"id":"di_tofu","name":"豆腐蔬菜米饭","slot":"晚餐","ingredients":[["tofu",220],["rice",160],["carrot",150]]},
+ {"id":"di_egg","name":"鸡蛋豆腐蔬菜","slot":"晚餐","ingredients":[["egg",100],["tofu",150],["broccoli",150]]}
+]

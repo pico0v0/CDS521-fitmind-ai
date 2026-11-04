@@ -1,0 +1,16 @@
+[
+ {"id":"squat","name":"徒手深蹲","equipment":"徒手","muscle":"下肢"},
+ {"id":"pushup","name":"俯卧撑","equipment":"徒手","muscle":"上肢"},
+ {"id":"lunge","name":"弓步蹲","equipment":"徒手","muscle":"下肢"},
+ {"id":"plank","name":"平板支撑","equipment":"徒手","muscle":"核心"},
+ {"id":"bridge","name":"臀桥","equipment":"徒手","muscle":"下肢"},
+ {"id":"bird_dog","name":"鸟狗式","equipment":"徒手","muscle":"核心"},
+ {"id":"db_row","name":"哑铃划船","equipment":"哑铃","muscle":"上肢"},
+ {"id":"db_press","name":"哑铃卧推","equipment":"哑铃","muscle":"上肢"},
+ {"id":"db_squat","name":"哑铃杯式深蹲","equipment":"哑铃","muscle":"下肢"},
+ {"id":"db_deadlift","name":"哑铃罗马尼亚硬拉","equipment":"哑铃","muscle":"下肢"},
+ {"id":"chest_machine","name":"坐姿推胸","equipment":"健身房","muscle":"上肢"},
+ {"id":"leg_press","name":"腿举机","equipment":"健身房","muscle":"下肢"},
+ {"id":"lat_pulldown","name":"高位下拉","equipment":"健身房","muscle":"上肢"},
+ {"id":"cable_row","name":"绳索划船","equipment":"健身房","muscle":"上肢"}
+]
