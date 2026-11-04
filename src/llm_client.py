@@ -40,7 +40,7 @@ def call_structured_llm(
     user_prompt: str,
     model: Optional[str] = None,
     max_retries: int = 2,
-    timeout: float = 240.0,
+    timeout: float = 300.0,
 ) -> tuple[T, dict[str, Any]]:
     """
     通过 Responses API 强类型解析输出符合 response_model 的结构化数据。
@@ -53,15 +53,20 @@ def call_structured_llm(
     for attempt in range(1, max_retries + 1):
         t0 = time.time()
         try:
-            response = client.responses.parse(
-                model=target_model,
-                input=[
+            parse_kwargs: dict[str, Any] = {
+                "model": target_model,
+                "input": [
                     {"role": "system", "content": system_prompt},
                     {"role": "user", "content": user_prompt}
                 ],
-                text_format=response_model,
-                timeout=timeout
-            )
+                "text_format": response_model,
+                "timeout": timeout
+            }
+            # 对 gpt-5.x/sol 等推理模型设置 low effort，减少冗余思考 Token，大幅提速
+            if any(k in target_model.lower() for k in ["gpt-5", "o1", "o3", "o4", "sol"]):
+                parse_kwargs["reasoning"] = {"effort": "low"}
+
+            response = client.responses.parse(**parse_kwargs)
             latency_ms = int((time.time() - t0) * 1000)
             
             if response.output_parsed is None:

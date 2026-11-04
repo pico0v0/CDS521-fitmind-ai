@@ -237,7 +237,15 @@ if "current_plan" in st.session_state:
     with col_stat2:
         st.metric("生成机制", plan.get("mode", "未知"))
     with col_stat3:
-        st.metric("耗时 (Latency)", f"{meta.get('latency_ms', 0)} ms")
+        raw_ms = meta.get("latency_ms", 0)
+        sec = raw_ms / 1000.0
+        if sec >= 60:
+            m = int(sec // 60)
+            s = sec % 60
+            disp_time = f"{m} 分 {s:.1f} 秒"
+        else:
+            disp_time = f"{sec:.1f} 秒"
+        st.metric("耗时 (Latency)", disp_time)
     with col_stat4:
         workout_days_cnt = sum(1 for d in plan.get("week", []) if d.get("workout"))
         st.metric("周训练频次", f"{workout_days_cnt} 次 / 周")
