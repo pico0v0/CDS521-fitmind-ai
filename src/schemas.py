@@ -2,8 +2,8 @@
 确保系统各模块（检索、LLM、校验、重排、评测与前端）数据格式高度统一。
 """
 from __future__ import annotations
-from typing import Literal, List, Dict, Optional
-from pydantic import BaseModel, Field, ConfigDict
+from typing import Literal, List, Dict, Optional, Any
+from pydantic import BaseModel, Field, ConfigDict, model_validator
 
 EquipmentType = Literal["徒手", "哑铃", "健身房"]
 GoalType = Literal["减脂", "增肌", "塑形", "保持健康"]
@@ -105,6 +105,43 @@ class DayMeals(BaseModel):
     breakfast: MealDetail = Field(description="早餐安排")
     lunch: MealDetail = Field(description="午餐安排")
     dinner: MealDetail = Field(description="晚餐安排")
+
+    @model_validator(mode="before")
+    @classmethod
+    def normalize_slot_keys(cls, data: Any) -> Any:
+        if isinstance(data, dict):
+            mapped = {}
+            if "breakfast" in data:
+                mapped["breakfast"] = data["breakfast"]
+            elif "早餐" in data:
+                mapped["breakfast"] = data["早餐"]
+
+            if "lunch" in data:
+                mapped["lunch"] = data["lunch"]
+            elif "午餐" in data:
+                mapped["lunch"] = data["午餐"]
+
+            if "dinner" in data:
+                mapped["dinner"] = data["dinner"]
+            elif "晚餐" in data:
+                mapped["dinner"] = data["晚餐"]
+            return mapped
+        return data
+
+    @classmethod
+    def from_any_dict(cls, data: Any) -> DayMeals:
+        if isinstance(data, DayMeals):
+            return data
+        if isinstance(data, dict):
+            b = data.get("breakfast") or data.get("早餐")
+            l = data.get("lunch") or data.get("午餐")
+            d = data.get("dinner") or data.get("晚餐")
+            return cls(
+                breakfast=MealDetail.model_validate(b),
+                lunch=MealDetail.model_validate(l),
+                dinner=MealDetail.model_validate(d)
+            )
+        raise ValueError(f"无法将 {type(data)} 转换为 DayMeals")
 
     def __getitem__(self, slot: str) -> MealDetail:
         mapping = {
