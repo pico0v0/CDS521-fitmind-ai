@@ -31,7 +31,7 @@ def generate_weekly_plan_llm(
     safe_food_by_id, safe_meals = get_safe_foods_and_meals(user_p.allergies, user_p.exclude_foods)
 
     ex_summary = [{"id": e["id"], "name": e["name"], "muscle": e["muscle"], "equipment": e["equipment"]} for e in eligible_ex]
-    meal_summary = [{"id": m["id"], "name": m["name"], "slot": m["slot"], "ingredients": m["ingredients"]} for m in safe_meals]
+    meal_summary = [{"id": m["id"], "name": m["name"], "slot": m["slot"], "ingredients": m["ingredients"]} for m in safe_meals[:12]]
 
     # 2. 构建 Prompt
     system_prompt = (
@@ -39,9 +39,9 @@ def generate_weekly_plan_llm(
         "你的职责是为目标用户制定一份兼具科学性、个性化与可执行性的 7 天健身与三餐饮食方案。\n\n"
         "【硬性系统约束 - 必须 100% 遵守】：\n"
         f"1. 训练日约束：必须在用户的可用训练日中正好安排 {user_p.sessions} 天训练，其余天数为休息恢复日（workout 设为 null）。允许训练日：{user_p.available_days}。\n"
-        f"2. 动作器械约束：用户器械为 '{user_p.equipment}'，所选动作 ID 必须全部来自下方的【合法候选动作列表】，绝对不可自行编造或越界使用未持有的器械！\n"
+        f"2. 动作器械约束：用户器械为 '{user_p.equipment}'，所选动作 ID 必须全部来自下方的【合法候选动作列表】，绝对不可越界使用未持有的器械！\n"
         "3. 饮食安全约束：严禁包含用户的过敏原与排除食物。每餐可以选用【合法餐食模板】或搭配安全食材。\n"
-        "4. 数学一致性约束：食材重量必须大于 0，单餐每 100g 营养数据请准确计算为总和（系统会自动进行确定性复算校验）。\n"
+        "4. 数值生成加速：三餐营养数据（卡路里/蛋白质/脂肪/碳水）填写合理预估值即可，后台确定性引擎会自动进行精确复算校验与物理守恒对齐，请专注结构搭配以加快响应速度。\n"
         "5. 7天完整性：必须且只能覆盖周一至周日共 7 天。\n"
     )
 
@@ -57,7 +57,7 @@ def generate_weekly_plan_llm(
         f"【可选合法动作候选池】（共 {len(ex_summary)} 个动作，仅可从此处选取 ID）：\n"
         f"{json.dumps(ex_summary, ensure_ascii=False)}\n\n"
         f"【安全合规餐食模板库】（供参考选用）：\n"
-        f"{json.dumps(meal_summary[:18], ensure_ascii=False)}\n\n"
+        f"{json.dumps(meal_summary, ensure_ascii=False)}\n\n"
         f"请生成结构化 7 天规划，并附带针对该用户特质的科学解释与指导建议。"
     )
 
